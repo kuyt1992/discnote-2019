@@ -1,5 +1,13 @@
-<div class="center jumbotron">
-  <div class="text-center">
-    <h1>Welcome to the Discnote</h1>
-    <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
-</div>
+<% if logged_in? %>
+  <p>ログイン完了ユーザー: <%= current_user.name %></p>
+<% else %>
+  <div class="jumbotron">
+    <div class="welcome text-center">
+      <h1>Welcome to the Discnote</h1>
+      <p>ーー「音楽」で、繋がろう。ーー</p>
+      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-sm btn-info' %>
+      
+      <%= link_to 'Log in', login_path, class: 'btn btn-sm btn-outline-info' %>
+    </div>
+  </div>
+<% end %>

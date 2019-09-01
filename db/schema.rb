@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_17_055331) do
+ActiveRecord::Schema.define(version: 2019_08_25_055843) do
 
   create_table "albums", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "title"
@@ -57,6 +57,8 @@ ActiveRecord::Schema.define(version: 2019_08_17_055331) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "image"
+    t.string "introduce"
   end
 
   add_foreign_key "albums", "artists"

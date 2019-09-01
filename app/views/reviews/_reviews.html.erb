@@ -1,0 +1,35 @@
+<% if reviews.any? %>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <% reviews.each do |review| %>
+        <div class="col-md-6">
+          <div class="card mb-4 shadow-sm">
+            <div class="card-body">
+              <% unless (controller.controller_name == "users" && controller.action_name == "show") %>
+                <%= image_tag review.user.image.thumbicon.url %>
+                <span class="mb-4"><%= link_to review.user.name, user_path(review.user) %>のレビュー</span>
+              <% end %>
+              
+              <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
+                <h5 class="card-subtitle mt-2 mb-1"><%=link_to review.album.title, album_path(review.album) %></h5>
+                <p class="card-subtitle mb-1"><%= link_to review.album.artist.name, artist_path(review.album.artist) %></p>
+                <%= image_tag review.album.image.thumb200.url, class: "img-thumbnail" %>
+
+              <% end %>
+              <!--スコア入れる -->
+              <p class="card-text mt-2"><%= review.body %></p>
+              <!--button type="button" class="btn btn-sm btn-outline-secondary"--><!--%= link_to 'view', review_path(review) %></button-->
+              <span class="text-muted">posted at <%= review.created_at %></span>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+    </div>
+  </div>
+</div>
+
+
+<!--%= paginate reviews --%>
+<% end %>

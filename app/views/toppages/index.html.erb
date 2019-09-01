@@ -1,13 +1,18 @@
 <% if logged_in? %>
-  <p>ログイン完了ユーザー: <%= current_user.name %></p>
+  <div class="text-center p-3">
+    <h2>タイムライン</h2>
+  </div>
+  <!--<div class="row">-->
+
+    <!--<div class="col-sm-12">-->
+      <%= render 'reviews/reviews', reviews: @reviews %>
+    <!--</div>-->
+  <!--</div>-->
 <% else %>
-  <div class="jumbotron">
-    <div class="welcome text-center">
+  <div class="center jumbotron">
+    <div class="text-center">
       <h1>Welcome to the Discnote</h1>
-      <p>ーー「音楽」で、繋がろう。ーー</p>
-      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-sm btn-info' %>
-      
-      <%= link_to 'Log in', login_path, class: 'btn btn-sm btn-outline-info' %>
+      <%= link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary' %>
     </div>
   </div>
 <% end %>

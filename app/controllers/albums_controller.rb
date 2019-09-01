@@ -5,5 +5,7 @@ class AlbumsController < ApplicationController
 
   def show
     @album = Album.find(params[:id])
+    @review = current_user.reviews.build
   end
+
 end

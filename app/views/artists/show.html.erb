@@ -1,20 +1,19 @@
 <div class="row">
-  <aside class="col-sm-12">
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title"><%= @artist.name %></h3>
-      </div>
-      <div class="card-body">
-        
-      </div>
+  <div class="media col-sm-12 mt-5 mb-5">
+    <div class="media order-2">
+      <%= image_tag @artist.image.thumb500.url, class: "img-thumbnail" %>
     </div>
-  </aside>
+    <div class="media-body order-1">
+      <h3 class="media-heading"><%= @artist.name %></h3>
+    </div>
+  </div>
+  
   <div class="col-sm-12">
     <ul class="nav nav-tabs nav-justified mb-3">
       <li class="nav-item"><a href="<%= artist_path(@artist) %>" class="nav-link <%= 'active' if current_page?(artist_path(@artist)) %> "><i class="fas fa-compact-disc"></i> Albums</a></li>
       <!--　　artist_path(@artst) になっていたのがエラーの原因です。@artstインスタンスはnilなので、routingエラーが起こっていました。　@artst　<= これおかしいですね？ -->
-      <li class="nav-item"><a href="#" class="nav-link">Followings</a></li>
-      <li class="nav-item"><a href="#" class="nav-link">Followers</a></li>
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followings</a></li> -->
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followers</a></li> -->
     </ul>
     <%= render 'albums/albums', albums: @albums %>
   </div>

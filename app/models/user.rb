@@ -3,7 +3,11 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
                     uniqueness: { case_sensitive: false }
+  validates :introduce, length: { maximum: 500 }
+  
   has_secure_password
+  
+  mount_uploader :image, ImageUploader
   
   has_many :reviews
   has_many :albums, through: :reviews
@@ -26,6 +30,10 @@ class User < ApplicationRecord
 
   def following?(other_user)
     self.followings.include?(other_user)
+  end
+  
+  def feed_reviews
+    Review.where(user_id: self.following_ids + [self.id])
   end
   
 end

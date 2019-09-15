@@ -1,3 +1,4 @@
+<% if logged_in? %>
 <div class="row">
   
   <div class="media col-sm-12 mt-5 mb-5">
@@ -5,7 +6,7 @@
       <%= image_tag @album.image.thumb.url, class: "img-thumbnail" %>
     </div>
     <div class="media-body ml-4">
-      <h2 class="media-heading"><%= @album.title %></h2>
+      <h3 class="media-heading"><%= @album.title %></h3>
       <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
       <!--h6 class="media-heading">リリース：<!--%=@album.release_date %></h6-->
       <!--h6>評価：</h6-->
@@ -20,13 +21,12 @@
       <!-- <li class="nav-item"><a href="#" class="nav-link">Followers</a></li> -->
     </ul>
     <%= render 'reviews/reviews', reviews: @album.reviews  %>
-  </div>
+
   
   
   <!--div class="container"-->
   <!--div class ="row"-->
-  <div class="col-12">
-    <div class="card">
+    <div class="card mt-2">
       <div class="card-header">
         <h5 class="card-title">レビュー投稿</h5>
       </div>
@@ -61,3 +61,28 @@
   <!--/div-->
   
 </div>
+<% else %>
+<div class="row">
+  
+  <div class="media col-sm-12 mt-5 mb-5">
+    <div class="media-left">
+      <%= image_tag @album.image.thumb.url, class: "img-thumbnail" %>
+    </div>
+    <div class="media-body ml-4">
+      <h3 class="media-heading"><%= @album.title %></h3>
+      <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
+      <!--h6 class="media-heading">リリース：<!--%=@album.release_date %></h6-->
+      <!--h6>評価：</h6-->
+    </div>
+  </div>
+
+
+  <div class="col-sm-12 mb-5">
+    <ul class="nav nav-tabs nav-justified mb-3">
+      <li class="nav-item"><a href="<%= album_path(@album) %>" class="nav-link <%= 'active' if current_page?(album_path(@album)) %>"><i class="fas fa-compact-disc"></i> Reviews <span class="badge badge-secondary"><%= @count_reviews %></span></a></li>
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followings</a></li> -->
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followers</a></li> -->
+    </ul>
+    <%= render 'reviews/reviews', reviews: @album.reviews  %>
+  </div>
+<% end %>

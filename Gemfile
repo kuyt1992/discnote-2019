@@ -61,7 +61,9 @@ gem 'carrierwave'
 #gem 'rmagick'
 gem 'mini_magick'
 
-gem 'cloudinary'
+gem 'fog-aws'
+
+#gem 'cloudinary'
 
 group :production do
   gem 'pg', '>= 0.18', '< 2.0'

@@ -5,5 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Artist.create(name: 'Spitz')
-Album.create(title:'三日月ロック', artist_id:1)
+Artist.create(
+    name: 'Spitz',
+    image: open("#{Rails.root}/db/fixtures/spitz.jpg")
+)
+
+
+Album.create(
+    title:'三日月ロック', 
+    artist_id:1,
+    image: open("#{Rails.root}/db/fixtures/mikaduki.jpg")
+)

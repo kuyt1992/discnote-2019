@@ -7,8 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Artist.create(
     name: 'Spitz',
-    image: open("#{Rails.root}/db/fixtures/spitz.jpg")
+    #image: open("#{Rails.root}/db/fixtures/spitz.jpg")
 )
+
+Artist.first.update_attributes(image: File.open("#{Rails.root}/db/fixtures/spitz.jpg"))
 
 
 Album.create(

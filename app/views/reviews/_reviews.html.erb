@@ -10,15 +10,35 @@
                 <%= image_tag review.user.image.thumbicon.url %>
                 <span class="mb-4"><%= link_to review.user.name, user_path(review.user) %>のレビュー</span>
               <% end %>
-              
+
               <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
                 <h5 class="card-subtitle mt-2 mb-1"><%=link_to review.album.title, album_path(review.album) %></h5>
                 <p class="card-subtitle mb-1"><%= link_to review.album.artist.name, artist_path(review.album.artist) %></p>
                 <%= image_tag review.album.image.thumb200.url, class: "img-thumbnail" %>
-
               <% end %>
-              <!--スコア入れる -->
-              <p class="card-text mt-2"><%= review.body %></p>
+              
+              <!--評価-->
+              <div class="row inline">
+              <!--h6 class="ml-3 mt-3">Rate：<!--%= review.rate %--><!--/h6-->
+              <div class="ml-3 mt-1" id="star-<%= review.id %>">Rate：<%= review.rate.round(1) %></div>
+              <%= javascript_include_tag "jquery.raty.js" %>
+              </div>
+              
+              
+                <script>
+                  $('#star-<%= review.id %>').raty({
+                    size: 36,
+                    starOff:  '<%= asset_path('star-off.png') %>',
+                    starOn : '<%= asset_path('star-on.png') %>',
+                    starHalf: '<%= asset_path('star-half.png') %>',
+                    
+                    half: true,
+                    readOnly: true,
+                    score: <%= review.rate %>,
+                  });
+                </script>  
+
+              <p class="card-text"><%= review.body %></p>
               <!--button type="button" class="btn btn-sm btn-outline-secondary"--><!--%= link_to 'view', review_path(review) %></button-->
               <span class="text-muted">posted at <%= review.created_at %></span>
               <% if current_user == review.user %>

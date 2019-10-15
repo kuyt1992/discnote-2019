@@ -1,5 +1,17 @@
 <% if logged_in? %>
+  
+  <nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="/">トップ</a></li>
+		  <li class="breadcrumb-item"><a class="breadcrumb-item" href= <%=artist_path(@album.artist)%>><%= @album.artist.name%></a></li>
+		  <li class="breadcrumb-item active" aria-current="page">アルバム詳細</li>
+	  </ol>
+  </nav>
+  
 <div class="row">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/jquery.raty.js"></script>
+  <%= javascript_include_tag "jquery.raty.js" %>
   
   <div class="media col-sm-12 mt-5 mb-5">
     <div class="media-left">
@@ -8,10 +20,25 @@
     <div class="media-body ml-4">
       <h3 class="media-heading"><%= @album.title %></h3>
       <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
-      <!--h6 class="media-heading">リリース：<!--%=@album.release_date %></h6-->
-      <!--h6>評価：</h6-->
+      <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
+      <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>
+      <%= javascript_include_tag "jquery.raty.js" %>
     </div>
   </div>
+  
+    <script>
+      $('#star-<%= @album.id %>').raty({
+        size: 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        half: true,
+        round : { down: .4, full: .6, up: .99 },
+        precision: true,
+        readOnly: true,
+        score: <%= @average %>,
+      });
+    </script>  
 
 
   <div class="col-sm-12 mb-5">
@@ -42,11 +69,38 @@
                 </ul>
               </div>
             <% end %>
+            
+          <!--スコア -->
+          <div class="form-group row inline">
+            <label for="rate" class="ml-3">Rate： </label>
+            <div id="star"></div>
+            <div class="ml-1", id="star_input" style="height: 1.5em; width: 2em;">
+            <%= f.hidden_field :rate, id: :review_star %>
+            <%= javascript_include_tag "jquery.raty.js" %>
+            </div>
+          </div>
+              
+          <!-- 評価javascript -->
+          <script>
+          $('#star').raty({
+            
+            size     : 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            scoreName: 'review[rate]',
+            
+            target: '#star_input',
+            targetType: 'number',
+            targetKeep: true,
+          　half: true,
+          　precision:true,
+          　round : { down: .4, full: .6, up: .99 },
+            hints: ['1', '2', '3', '4', '5']
+          });
           
-          <!--div class="form-group"-->
-            <!--%= f.label :name, 'スコア' %-->
-            <!--%= f.text_area :body, class: 'form-control', rows: 1 %-->
-          <!--/div-->
+          </script>  
+
           <div class="form-group">
             <%= f.label :name, 'レビュー内容' %>
             <%= f.text_area :body, class: 'form-control', rows: 4 %>
@@ -71,10 +125,25 @@
     <div class="media-body ml-4">
       <h3 class="media-heading"><%= @album.title %></h3>
       <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
-      <!--h6 class="media-heading">リリース：<!--%=@album.release_date %></h6-->
-      <!--h6>評価：</h6-->
+      <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
+      <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.round(1) %></h5>
+      <%= javascript_include_tag "jquery.raty.js" %>
     </div>
   </div>
+  
+    <script>
+      $('#star-<%= @album.id %>').raty({
+        size: 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        half: true,
+        round : { down: .4, full: .6, up: .99 },
+        precision: true,
+        readOnly: true,
+        score: <%= @average.round(1) %>,
+      });
+    </script>  
 
 
   <div class="col-sm-12 mb-5">

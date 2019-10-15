@@ -9,11 +9,14 @@
     <!--</div>-->
   <!--</div>-->
 <% else %>
-  <div class="center jumbotron">
-    <div class="text-center">
-      <h1>Welcome to the Discnote</h1>
-      <%= link_to 'Sign up now!', signup_path, class: 'btn btn btn-info' %>
-      <%= link_to 'Login', login_url, class: 'btn btn btn-outline-info' %>
-    </div>
+  <div class="jumbotron jumbotron-fluid">
+    <!--div class="bg-mask"-->
+      <div class="text-center">
+        <h5>ー「音楽」で繋がろうー</h5>
+        <h1 class="welcome mb-3">Discnote</h1>
+        <%= link_to 'Sign up now!', signup_path, class: 'btn btn btn-info' %>
+        <%= link_to 'Login', login_url, class: 'btn btn btn-outline-info' %>
+      </div>
+    <!--/div-->
   </div>
 <% end %>

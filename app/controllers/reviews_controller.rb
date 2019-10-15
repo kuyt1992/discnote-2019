@@ -36,7 +36,7 @@ class ReviewsController < ApplicationController
   private
   
   def review_params
-    params.require(:review).permit(:album_id, :body)
+    params.require(:review).permit(:album_id, :body, :rate)
   end
   
   def correct_user

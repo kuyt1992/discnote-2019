@@ -126,7 +126,7 @@
       <h3 class="media-heading"><%= @album.title %></h3>
       <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
       <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
-      <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.round(1) %></h5>
+      <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>
       <%= javascript_include_tag "jquery.raty.js" %>
     </div>
   </div>
@@ -141,7 +141,7 @@
         round : { down: .4, full: .6, up: .99 },
         precision: true,
         readOnly: true,
-        score: <%= @average.round(1) %>,
+        score: <%= @average %>,
       });
     </script>  
 

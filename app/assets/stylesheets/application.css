@@ -65,9 +65,7 @@
 	font-size: 14px;
 }
 
-.album-name {
-	font-size: 18px;
-}
+
 
 .jumbotron-user {
 	background-color:rgba(255,255,255,0);
@@ -104,3 +102,10 @@
 .container {
     max-width: 95%;
 }
+
+.review-img {
+	min-width: 100px;
+}
+
+
+

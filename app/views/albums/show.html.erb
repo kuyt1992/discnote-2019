@@ -2,7 +2,7 @@
   
   <nav aria-label="breadcrumb">
 	  <ol class="breadcrumb">
-		  <li class="breadcrumb-item"><a href="/">トップ</a></li>
+		  <li class="breadcrumb-item"><a href="/">Top</a></li>
 		  <li class="breadcrumb-item"><a class="breadcrumb-item" href= <%=artist_path(@album.artist)%>><%= @album.artist.name%></a></li>
 		  <li class="breadcrumb-item active" aria-current="page">アルバム詳細</li>
 	  </ol>
@@ -18,8 +18,8 @@
       <%= image_tag @album.image.thumb.url, class: "img-thumbnail" %>
       <%= render 'clips/clip_button', album: @album %>
     </div>
-    <div class="media-body ml-4">
-      <h3 class="media-heading"><%= @album.title %></h3>
+    <div class="media-body ml-3">
+      <h4 class="media-heading"><%= @album.title %></h3>
       <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
       <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
       <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>

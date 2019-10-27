@@ -13,7 +13,24 @@
     <!--%= javascript_include_tag "jquery-3.3.1.min" %-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"></script>
+ 
+  <style>
+  /* スマホ横画面用 */
+  @media screen and (max-width: 480px) {
+    .container{padding:0}
+    div[class^="col-"] {padding:0}
+    .row {margin:0;}
+  }
+  /* スマホ縦画面用 */
+  @media screen and (max-width: 320px) {
+    .container{padding:0}
+    div[class^="col-"] {padding:0}
+    .row {margin:0;}
+  }
+  </style>
+    
   </head>
 
   <body>

@@ -16,16 +16,16 @@
               </div>
 
               <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
-                <h5 class="card-subtitle album-name mt-2 mb-1"><%=link_to review.album.title, album_path(review.album) %></h5>
-                <p class="card-subtitle d-inline-block"><%= link_to review.album.artist.name, artist_path(review.album.artist) %></p>
+                <h5 class="card-subtitle mt-2 mb-1"><%=link_to review.album.title, album_path(review.album) %></h5>
+                <p class="card-subtitle"><%= link_to review.album.artist.name, artist_path(review.album.artist) %></p>
               <% end %>
               
               <!--評価-->
-              <div class="row inline">
+
               <!--h6 class="ml-3 mt-3">Rate：<!--%= review.rate %--><!--/h6-->
-              <div class="ml-3 mb-2" id="star-<%= review.id %>">Rate：<%= review.rate.round(1) %></div>
+              <div class="mb-2" id="star-<%= review.id %>">Rate：<%= review.rate.round(1) %></div>
               <%= javascript_include_tag "jquery.raty.js" %>
-              </div>
+
               
               
                 <script>
@@ -48,18 +48,18 @@
                   <%= render 'favorites/like_button', review: review %>
                 </div>
               <% end %>
-              <span class="text-muted mt-1 align-items-end">posted at <%= review.created_at %></span>
+              <p class="text-muted mt-1 align-items-end">posted at <%= review.created_at %></p>
               <div class="align-items-end">
                 <% if current_user == review.user %>
                   <%= link_to "Delete", review, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-outline-danger btn-sm align-items-end' %>
-                  <%= link_to "Edit", review, method: :edit, class: 'btn btn-outline-dark btn-sm align-items-end' %>
+                  <!--%= link_to "Edit", review, method: :edit, class: 'btn btn-outline-dark btn-sm align-items-end' %-->
                 <% end %>
               </div>
             </div>
             <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
-            <div class="card-img-right align-items-start flex-auto mt-4 mr-2">
+            <div class="card-img-right align-items-start flex-auto img-responsive mt-4 mr-2">
               <%= link_to album_path(review.album) do %>
-              <%= image_tag review.album.image.thumb200.url, class: "border" %>
+              <%= image_tag review.album.image.thumb200.url, class: "border img-fluid review-img" %>
               <% end %>
               <div class="mt-1 mb-2 btn-sm flex-fill p-0">
                 <%= render 'clips/clip_button', album: review.album, class: "" %>

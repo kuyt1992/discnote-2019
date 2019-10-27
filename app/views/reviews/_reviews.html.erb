@@ -3,24 +3,27 @@
   <div class="container">
     <div class="row">
       <% reviews.each do |review| %>
-        <div class="col-md-6">
-          <div class="card mb-4 shadow-sm">
-            <div class="card-body">
-              <% unless (controller.controller_name == "users" && controller.action_name == "show") %>
-                <%= image_tag review.user.image.thumbicon.url %>
-                <span class="mb-4"><%= link_to review.user.name, user_path(review.user) %>のレビュー</span>
-              <% end %>
+        <div class="col-lg-6 ">
+          <div class="card flex-row mb-4 shadow-sm">
+            <div class="card-body d-flex flex-column align-items-start">
+              <div class="flex-row">
+                <% unless (controller.controller_name == "users" && controller.action_name == "show") %>
+                  <%= link_to user_path(review.user) do %>
+                  <%= image_tag review.user.image.thumbicon.url, class: "rounded-circle" %>
+                  <% end %>
+                  <span class="d-inline-block mb-4"><%= link_to review.user.name, user_path(review.user) %>のレビュー</span>
+                <% end %>
+              </div>
 
               <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
-                <h5 class="card-subtitle mt-2 mb-1"><%=link_to review.album.title, album_path(review.album) %></h5>
-                <p class="card-subtitle mb-1"><%= link_to review.album.artist.name, artist_path(review.album.artist) %></p>
-                <%= image_tag review.album.image.thumb200.url, class: "img-thumbnail" %>
+                <h5 class="card-subtitle album-name mt-2 mb-1"><%=link_to review.album.title, album_path(review.album) %></h5>
+                <p class="card-subtitle d-inline-block"><%= link_to review.album.artist.name, artist_path(review.album.artist) %></p>
               <% end %>
               
               <!--評価-->
               <div class="row inline">
               <!--h6 class="ml-3 mt-3">Rate：<!--%= review.rate %--><!--/h6-->
-              <div class="ml-3 mt-1" id="star-<%= review.id %>">Rate：<%= review.rate.round(1) %></div>
+              <div class="ml-3 mb-2" id="star-<%= review.id %>">Rate：<%= review.rate.round(1) %></div>
               <%= javascript_include_tag "jquery.raty.js" %>
               </div>
               
@@ -38,16 +41,36 @@
                   });
                 </script>  
 
-              <p class="card-text"><%= review.body %></p>
+              <p class="card-text review-body"><%= review.body %></p>
               <!--button type="button" class="btn btn-sm btn-outline-secondary"--><!--%= link_to 'view', review_path(review) %></button-->
-              <span class="text-muted">posted at <%= review.created_at %></span>
-              <% if current_user == review.user %>
-                <%= link_to "Delete", review, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-outline-danger btn-sm' %>
+              <% if logged_in? %>
+                <div class="mt-1">
+                  <%= render 'favorites/like_button', review: review %>
+                </div>
               <% end %>
+              <span class="text-muted mt-1 align-items-end">posted at <%= review.created_at %></span>
+              <div class="align-items-end">
+                <% if current_user == review.user %>
+                  <%= link_to "Delete", review, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-outline-danger btn-sm align-items-end' %>
+                  <%= link_to "Edit", review, method: :edit, class: 'btn btn-outline-dark btn-sm align-items-end' %>
+                <% end %>
+              </div>
             </div>
+            <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
+            <div class="card-img-right align-items-start flex-auto mt-4 mr-2">
+              <%= link_to album_path(review.album) do %>
+              <%= image_tag review.album.image.thumb200.url, class: "border" %>
+              <% end %>
+              <div class="mt-1 mb-2 btn-sm flex-fill p-0">
+                <%= render 'clips/clip_button', album: review.album, class: "" %>
+              </div>
+            </div>
+            <% end %>
+            
           </div>
         </div>
       <% end %>
+      
       
     </div>
   </div>

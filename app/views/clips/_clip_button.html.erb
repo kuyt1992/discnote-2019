@@ -1,0 +1,15 @@
+<% if current_user.clip_album?(album) %>
+  <%= form_for(current_user.clips.find_by(album_id: album.id), html: { method: :delete }) do |f| %>
+    <%= hidden_field_tag :album_id, album.id %>
+    <%= button_tag type: "submit", class: 'btn btn-info btn-sm btn-block' do %>
+      <i class="fas fa-paperclip"></i> Clip <span class="badge badge-secondary"> <%= album.clips.count %></span>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= form_for(current_user.clips.build) do |f| %>
+    <%= hidden_field_tag :album_id, album.id %>
+    <%= button_tag type:"submit", class: 'btn btn-outline-info btn-sm btn-block' do %>
+      <i class="fas fa-paperclip"></i> Clip <span class="badge badge-secondary"> <%= album.clips.count %></span>
+    <% end %>
+  <% end %>
+<% end %>

@@ -14,7 +14,7 @@
  *= require_self
  */
 
-.jumbotron {
+.jumbotron-top {
 	background-color:rgba(255,255,255,0.5);
 	background-blend-mode:lighten;
 	background-size: cover;
@@ -52,3 +52,51 @@
 	color: black;
 }
 
+.inline-block-follow {
+	
+	float: right;
+}
+
+.album-image {
+	float: right;
+}
+
+.review-body {
+	font-size: 14px;
+}
+
+.album-name {
+	font-size: 18px;
+}
+
+.jumbotron-user {
+	background-color:rgba(255,255,255,0);
+	background-blend-mode:lighten;
+	background-size: cover;
+	background-position: 50% 50%;
+
+	width: 100%;
+	padding-top: 0px;
+
+    top: 55px;
+    left: 0;
+    margin-bottom:0;
+}
+
+.breadcrumb-user {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-top: 0px;
+	margin-bottom:30px;
+	border-radius: 0 ;
+}
+
+.breadcrumb {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-radius: 0 ;
+}
+
+.media-body-user {
+	color: white;
+}

@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     member do
       get :followings
       get :followers
+      get :likes
+      get :clips
     end
   end
   
@@ -22,6 +24,9 @@ Rails.application.routes.draw do
   
   resources :reviews
   
+  resources :favorites, only: [:create, :destroy]
+  
+  resources :clips, only: [:create, :destroy]
   
   
 end

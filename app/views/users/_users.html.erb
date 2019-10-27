@@ -10,17 +10,15 @@
           <div class="card mb-4 shadow-sm">
            <!--%= image_tag user.image.thumb200.url, class: "card-img-top" %-->
             <div class="card-body">
-              <%= image_tag user.image.thumbicon.url %>
-              <span class="mb-4 ml-1"><%= link_to user.name, user_path(user) %></span>
-              <p><%= user.introduce %></p>
+              <%= link_to user_path(user) do %>
+              <%= image_tag user.image.thumbicon.url, class: "rounded-circle" %>
+              <% end %>
+              <span class="mb-4 ml-1"><%= link_to user.name, user_path(user) %></span>　
+              <div class="inline-block-follow"><%= render 'relationships/follow_button', user: user %></div>
+              <p class="mt-1 mb-0"> Followings: <%= user.followings.count %></p>
+              <p class="mb-1"> Followers: <%= user.followers.count %></p>
+              <p class="mt-1"><%= user.introduce %></p>
               
-              <!--div-->
-                <!--%= user.name %-->
-              <!--/div-->
-              <div class="btn-group">
-                <button type="button" class="btn btn-sm btn-outline-secondary"><%= link_to 'View profile', user_path(user) %></button>
-                
-              </div>
             </div>
           </div>
         </div>

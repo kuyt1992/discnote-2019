@@ -16,6 +16,7 @@
   <div class="media col-sm-12 mt-5 mb-5">
     <div class="media-left">
       <%= image_tag @album.image.thumb.url, class: "img-thumbnail" %>
+      <%= render 'clips/clip_button', album: @album %>
     </div>
     <div class="media-body ml-4">
       <h3 class="media-heading"><%= @album.title %></h3>
@@ -23,6 +24,7 @@
       <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
       <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>
       <%= javascript_include_tag "jquery.raty.js" %>
+    
     </div>
   </div>
   
@@ -48,14 +50,12 @@
       <!-- <li class="nav-item"><a href="#" class="nav-link">Followers</a></li> -->
     </ul>
     <%= render 'reviews/reviews', reviews: @album.reviews  %>
-
-  
   
   <!--div class="container"-->
   <!--div class ="row"-->
     <div class="card mt-2">
       <div class="card-header">
-        <h5 class="card-title">レビュー投稿</h5>
+        <h6 class="card-title"><i class="fas fa-pen-square"></i> レビュー投稿</h6>
       </div>
       <div class="card-body">
         <%= form_with(model: @review, local: true) do |f| %>
@@ -144,7 +144,6 @@
         score: <%= @average %>,
       });
     </script>  
-
 
   <div class="col-sm-12 mb-5">
     <ul class="nav nav-tabs nav-justified mb-3">

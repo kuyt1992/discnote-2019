@@ -14,13 +14,13 @@
   <%= javascript_include_tag "jquery.raty.js" %>
   
   <div class="media col-sm-12 mt-5 mb-5">
-    <div class="media-left">
-      <%= image_tag @album.image.thumb.url, class: "img-thumbnail show-img" %>
+    <div class="card-img-left align-items-start flex-auto img-responsive mr-2">
+      <%= image_tag @album.image.thumb.url, class: "border img-fluid show-img mb-1" %>
       <%= render 'clips/clip_button', album: @album %>
     </div>
-    <div class="media-body ml-3">
-      <h4 class="media-heading"><%= @album.title %></h3>
-      <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
+    <div class="media-body flex-auto ml-2 col-sm-8 col-xs-10">
+      <h5 class="media-heading inline-block"><%= @album.title %></h5>
+      <h6 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h6>
       <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
       <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>
       <%= javascript_include_tag "jquery.raty.js" %>
@@ -119,12 +119,12 @@
 <div class="row">
   
   <div class="media col-sm-12 mt-5 mb-5">
-    <div class="media-left">
-      <%= image_tag @album.image.thumb.url, class: "img-thumbnail" %>
+    <div class="card-img-left align-items-start flex-auto img-responsive mr-2">
+      <%= image_tag @album.image.thumb.url, class: "border img-fluid show-img mb-1" %>
     </div>
-    <div class="media-body ml-4">
-      <h3 class="media-heading"><%= @album.title %></h3>
-      <h5 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h5>
+    <div class="media-body flex-auto ml-2 col-sm-8 col-xs-10">
+      <h5 class="media-heading"><%= @album.title %></h5>
+      <h6 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h6>
       <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
       <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>
       <%= javascript_include_tag "jquery.raty.js" %>

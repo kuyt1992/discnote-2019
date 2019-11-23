@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :albums, only: [:index, :show] 
   
   resources :reviews
+  post "reviews/:id/update" => "posts#update"
   
   resources :favorites, only: [:create, :destroy]
   

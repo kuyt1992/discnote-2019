@@ -17,10 +17,8 @@
                 <% end %>
               
                 <p class="card-text mt-1 mb-0">リリース：<%=album.release_date %></p>
-                <div class="row inline">
-                <div class="ml-3 mb-1" id="star-<%= album.id %>">評価：<%= album.reviews.average(:rate).present? ? album.reviews.average(:rate).round(1) : 0 %></div>
+                <div class="mb-1" id="star-<%= album.id %>">評価：<%= album.reviews.average(:rate).present? ? album.reviews.average(:rate).round(1) : 0 %></div>
                 <%= javascript_include_tag "jquery.raty.js" %>
-                </div>
               
                   <script>
                     $('#star-<%= album.id %>').raty({

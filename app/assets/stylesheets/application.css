@@ -72,7 +72,6 @@
 	background-blend-mode:lighten;
 	background-size: cover;
 	background-position: 50% 50%;
-
 	width: 100%;
 	padding-top: 0px;
 
@@ -104,8 +103,15 @@
 }
 
 .review-img {
-	min-width: 100px;
+	width: 100%;
+	min-width: 120px;
+	max-width: 150px;
 }
 
+.review-form {
+	margin-bottom: 0px;
+}
 
-
+.navbar {
+	z-index:100
+}

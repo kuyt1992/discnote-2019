@@ -55,7 +55,7 @@
   <!--div class ="row"-->
     <div class="card mt-2">
       <div class="card-header">
-        <h6 class="card-title"><i class="fas fa-pen-square"></i> レビュー投稿</h6>
+        <h5 class="card-title"><i class="fas fa-pen-square"></i> レビュー投稿</h5>
       </div>
       <div class="card-body">
         <%= form_with(model: @review, local: true) do |f| %>
@@ -71,9 +71,9 @@
             <% end %>
             
           <!--スコア -->
-          <div class="form-group row inline">
-            <label for="rate" class="ml-3">Rate： </label>
-            <div id="star"></div>
+          <div class="form-group review-form">
+            <label for="rate" class="d-inline-block">Rate： </label>
+            <div id="star" class="d-inline-block"></div>
             <div class="ml-1", id="star_input" style="height: 1.5em; width: 2em;">
             <%= f.hidden_field :rate, id: :review_star %>
             <%= javascript_include_tag "jquery.raty.js" %>
@@ -106,7 +106,7 @@
             <%= f.text_area :body, class: 'form-control', rows: 4 %>
           </div>
 
-          <%= f.submit 'Post', class: 'btn btn-info btn-block col-2' %>
+          <%= f.submit 'Post', class: 'btn btn-info btn-md' %>
         <% end %>
       </div>
     </div>

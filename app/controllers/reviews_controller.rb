@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy]
+  before_action :correct_user, only: [:destroy, :edit]
   
   def index
   end
@@ -23,8 +23,25 @@ class ReviewsController < ApplicationController
       render 'albums/show'
     end
   end
+  
+  def edit
+    @review = current_user.reviews.find_by(id: params[:id])
+    
+  end
 
   def update
+    @review = current_user.reviews.find_by(id: params[:id])
+    if @review.user_id == current_user.id
+      if @review.update(review_params)
+        flash[:success] = 'レビューを更新しました。'
+        render :edit
+      else
+        flash.now[:danger] = 'ユーザー情報の編集に失敗しました。'
+        render :edit
+      end  
+    else
+      redirect_to root_url
+    end
   end
 
   def destroy

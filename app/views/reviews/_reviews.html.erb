@@ -40,7 +40,8 @@
                     score: <%= review.rate %>,
                   });
                 </script>  
-
+              
+              
               <p class="card-text review-body"><%= review.body %></p>
               <!--button type="button" class="btn btn-sm btn-outline-secondary"--><!--%= link_to 'view', review_path(review) %></button-->
               <% if logged_in? %>
@@ -48,11 +49,11 @@
                   <%= render 'favorites/like_button', review: review %>
                 </div>
               <% end %>
-              <p class="text-muted mt-1 align-items-end">posted at <%= review.created_at %></p>
+              <p class="text-muted mt-1 mb-0 align-items-end">posted at <%= review.created_at %></p>
               <div class="align-items-end">
                 <% if current_user == review.user %>
                   <%= link_to "Delete", review, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-outline-danger btn-sm align-items-end' %>
-                  <!--%= link_to "Edit", review, method: :edit, class: 'btn btn-outline-dark btn-sm align-items-end' %-->
+                  <%= link_to "Edit", "/reviews/#{review.id}/edit", method: :get, class: 'btn btn-outline-dark btn-sm align-items-end' %>
                 <% end %>
               </div>
             </div>

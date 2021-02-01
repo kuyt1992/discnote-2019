@@ -1,0 +1,123 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+.jumbotron-top {
+	background-color:rgba(255,255,255,0.5);
+	background-blend-mode:lighten;
+	background-size: cover;
+	background-position: 50% 50%;
+	position: absolute;
+	width: 100%;
+    height: 100%;
+    top: 55px;
+    left: 0;
+    margin-bottom:0;
+
+}
+
+.bg-mask {
+	background: rgba(255,255,255,0.5);
+	height: 100%;
+
+}
+
+.welcome {
+	color:black;
+	letter-spacing: 0.04em
+
+}
+
+.logintitle{
+	color: black;
+}
+
+.loginform {
+	color: white;
+}
+
+.signuptitle {
+	color: black;
+}
+
+.inline-block-follow {
+	
+	float: right;
+}
+
+.album-image {
+	float: right;
+}
+
+.review-body {
+	font-size: 14px;
+}
+
+
+
+.jumbotron-user {
+	background-color:rgba(255,255,255,0);
+	background-blend-mode:lighten;
+	background-size: cover;
+	background-position: 50% 50%;
+	width: 100%;
+	padding-top: 0px;
+
+    top: 55px;
+    left: 0;
+    margin-bottom:0;
+}
+
+.breadcrumb-user {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	margin-top: 0px;
+	margin-bottom:30px;
+	border-radius: 0 ;
+}
+
+.breadcrumb {
+	padding-top: 6px;
+	padding-bottom: 6px;
+	border-radius: 0 ;
+}
+
+.media-body-user {
+	color: white;
+}
+
+.container {
+    max-width: 95%;
+}
+
+.review-img {
+	width: 100%;
+	min-width: 120px;
+	max-width: 150px;
+}
+
+.review-form {
+	margin-bottom: 0px;
+}
+
+.navbar {
+	z-index:100
+}
+
+.show-img {
+	width: 100%;
+	min-width: 120px;
+	max-width: 250px;
+}

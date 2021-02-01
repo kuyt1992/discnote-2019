@@ -1,0 +1,156 @@
+<% if logged_in? %>
+  
+  <nav aria-label="breadcrumb">
+	  <ol class="breadcrumb">
+		  <li class="breadcrumb-item"><a href="/">Top</a></li>
+		  <li class="breadcrumb-item"><a class="breadcrumb-item" href= <%=artist_path(@album.artist)%>><%= @album.artist.name%></a></li>
+		  <li class="breadcrumb-item active" aria-current="page">アルバム詳細</li>
+	  </ol>
+  </nav>
+  
+<div class="row">
+  <script src="/js/jquery.min.js"></script>
+  <script src="/js/jquery.raty.js"></script>
+  <%= javascript_include_tag "jquery.raty.js" %>
+  
+  <div class="media col-sm-12 mt-5 mb-5">
+    <div class="card-img-left align-items-start flex-auto img-responsive mr-2">
+      <%= image_tag @album.image.thumb.url, class: "border img-fluid show-img mb-1" %>
+      <%= render 'clips/clip_button', album: @album %>
+    </div>
+    <div class="media-body flex-auto ml-2 col-sm-8 col-xs-10">
+      <h5 class="media-heading inline-block"><%= @album.title %></h5>
+      <h6 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h6>
+      <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
+      <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>
+      <%= javascript_include_tag "jquery.raty.js" %>
+    
+    </div>
+  </div>
+  
+    <script>
+      $('#star-<%= @album.id %>').raty({
+        size: 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        half: true,
+        round : { down: .4, full: .6, up: .99 },
+        precision: true,
+        readOnly: true,
+        score: <%= @average %>,
+      });
+    </script>  
+
+
+  <div class="col-sm-12 mb-5">
+    <ul class="nav nav-tabs nav-justified mb-3">
+      <li class="nav-item"><a href="<%= album_path(@album) %>" class="nav-link <%= 'active' if current_page?(album_path(@album)) %>"><i class="fas fa-compact-disc"></i> Reviews <span class="badge badge-secondary"><%= @count_reviews %></span></a></li>
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followings</a></li> -->
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followers</a></li> -->
+    </ul>
+    <%= render 'reviews/reviews', reviews: @album.reviews  %>
+  
+  <!--div class="container"-->
+  <!--div class ="row"-->
+    <div class="card mt-2">
+      <div class="card-header">
+        <h5 class="card-title"><i class="fas fa-pen-square"></i> レビュー投稿</h5>
+      </div>
+      <div class="card-body">
+        <%= form_with(model: @review, local: true) do |f| %>
+          <%= f.hidden_field :album_id, :value => @album.id %>
+            <% if @review.errors.any? %>
+              <div id="error_explanation">
+                <ul>
+                  <% @review.errors.full_messages.each do |msg| %>
+                    <li><%= msg %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            
+          <!--スコア -->
+          <div class="form-group review-form">
+            <label for="rate" class="d-inline-block">Rate： </label>
+            <div id="star" class="d-inline-block"></div>
+            <div class="ml-1", id="star_input" style="height: 1.5em; width: 2em;">
+            <%= f.hidden_field :rate, id: :review_star %>
+            <%= javascript_include_tag "jquery.raty.js" %>
+            </div>
+          </div>
+              
+          <!-- 評価javascript -->
+          <script>
+          $('#star').raty({
+            
+            size     : 36,
+            starOff:  '<%= asset_path('star-off.png') %>',
+            starOn : '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            scoreName: 'review[rate]',
+            
+            target: '#star_input',
+            targetType: 'number',
+            targetKeep: true,
+          　half: true,
+          　precision:true,
+          　round : { down: .4, full: .6, up: .99 },
+            hints: ['1', '2', '3', '4', '5']
+          });
+          
+          </script>  
+
+          <div class="form-group">
+            <%= f.label :name, 'レビュー内容' %>
+            <%= f.text_area :body, class: 'form-control', rows: 4 %>
+          </div>
+
+          <%= f.submit 'Post', class: 'btn btn-info btn-md' %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!--/div-->
+  <!--/div-->
+  
+</div>
+<% else %>
+<div class="row">
+  
+  <div class="media col-sm-12 mt-5 mb-5">
+    <div class="card-img-left align-items-start flex-auto img-responsive mr-2">
+      <%= image_tag @album.image.thumb.url, class: "border img-fluid show-img mb-1" %>
+    </div>
+    <div class="media-body flex-auto ml-2 col-sm-8 col-xs-10">
+      <h5 class="media-heading"><%= @album.title %></h5>
+      <h6 class="media-heading"><%= link_to @album.artist.name, artist_path(@album.artist) %></h6>
+      <h6 class="media-heading">リリース：<%=@album.release_date %></h6>
+      <h5 class="media-heading" id="star-<%= @album.id %>">評価：<%= @average.present? ? @average.round(1) : 0 %></h5>
+      <%= javascript_include_tag "jquery.raty.js" %>
+    </div>
+  </div>
+  
+    <script>
+      $('#star-<%= @album.id %>').raty({
+        size: 36,
+        starOff:  '<%= asset_path('star-off.png') %>',
+        starOn : '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        half: true,
+        round : { down: .4, full: .6, up: .99 },
+        precision: true,
+        readOnly: true,
+        score: <%= @average %>,
+      });
+    </script>  
+
+  <div class="col-sm-12 mb-5">
+    <ul class="nav nav-tabs nav-justified mb-3">
+      <li class="nav-item"><a href="<%= album_path(@album) %>" class="nav-link <%= 'active' if current_page?(album_path(@album)) %>"><i class="fas fa-compact-disc"></i> Reviews <span class="badge badge-secondary"><%= @count_reviews %></span></a></li>
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followings</a></li> -->
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followers</a></li> -->
+    </ul>
+    <%= render 'reviews/reviews', reviews: @album.reviews  %>
+  </div>
+<% end %>

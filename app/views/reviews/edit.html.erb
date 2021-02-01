@@ -1,0 +1,92 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+	  <li class="breadcrumb-item"><a href="/">Top</a></li>
+		<li class="breadcrumb-item active" aria-current="page"><i class="fas fa-edit"></i> Edit</li>
+	</ol>
+</nav>
+
+<div class="text-center p-3">
+  <h3>レビュー編集</h3>
+</div>
+
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+          <div class="card flex-row mb-4 shadow-sm">
+            <div class="card-body ">
+              <div class="flex-row">
+                <% unless (controller.controller_name == "users" && controller.action_name == "show") %>
+                  <%= link_to user_path(@review.user) do %>
+                  <%= image_tag @review.user.image.thumbicon.url, class: "rounded-circle" %>
+                  <% end %>
+                  <span class="d-inline-block mb-4"><%= link_to @review.user.name, user_path(@review.user) %>のレビュー</span>
+                <% end %>
+              </div>
+
+              <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
+                <h5 class="card-subtitle mt-2 mb-1"><%=link_to @review.album.title, album_path(@review.album) %></h5>
+                <p class="card-subtitle"><%= link_to @review.album.artist.name, artist_path(@review.album.artist) %></p>
+              <% end %>
+              
+              
+            <%= form_with(model: @review, local: true) do |f| %>
+              <!--評価-->
+              <div class="form-group review-form">
+                <label for="rate" class="d-inline-block">Rate： <%= @review.rate.round(1) %></label>
+                <div id="star" class="d-inline-block"></div>
+                <div class="ml-1", id="star_input" style="height: 1.5em; width: 2em;">
+                <%= f.hidden_field :rate, id: :review_star %>
+                <%= javascript_include_tag "jquery.raty.js" %>
+                </div>
+              </div>
+         
+              <!-- 評価javascript -->
+              <script>
+              $('#star').raty({
+            
+                size     : 36,
+                starOff:  '<%= asset_path('star-off.png') %>',
+                starOn : '<%= asset_path('star-on.png') %>',
+                starHalf: '<%= asset_path('star-half.png') %>',
+                scoreName: 'review[rate]',
+            
+                target: '#star_input',
+                targetType: 'number',
+                targetKeep: true, 
+                half: true,
+          　     precision:true,
+              　round : { down: .4, full: .6, up: .99 },
+                hints: ['1', '2', '3', '4', '5']
+              });
+          
+              </script> 
+              
+              
+              <div class="form-group">
+                <%= f.text_area :body,placeholder: "レビュー編集", rows:7, class: 'mt-1 form-control input-lg' %>
+              </div>
+              <%= f.submit 'Update', class: 'mt-0 mb-3 btn btn-info  btn-md' %>
+            <% end %>
+            
+              
+              <p class="text-muted mt-1 mb-0 align-items-end">posted at <%= @review.created_at %></p>
+              <div class="align-items-end">
+                <% if current_user == @review.user %>
+                  <%= link_to "Delete", @review, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-outline-danger btn-sm align-items-end' %>
+                <% end %>
+              </div>
+            </div>
+            <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
+            <div class="card-img-right align-items-start flex-auto img-responsive mt-4 mr-2">
+              <%= link_to album_path(@review.album) do %>
+              <%= image_tag @review.album.image.thumb200.url, class: "border img-fluid review-img" %>
+              <% end %>
+            </div>
+            <% end %>
+            
+          </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+	  <li class="breadcrumb-item"><a href="/">Top</a></li>
+	  <li class="breadcrumb-item"><a class="breadcrumb-item" href="/artists" ><i class="fas fa-guitar"></i> Artists</a></li>
+		<li class="breadcrumb-item active" aria-current="page"><%= @artist.name %></li>
+	</ol>
+</nav>
+
+<div class="row">
+  <div class="media col-sm-12 mt-5 mb-5">
+    <div class="media order-2">
+      <%= image_tag @artist.image.thumb500.url, class: "img-thumbnail" %>
+    </div>
+    <div class="media-body order-1">
+      <h3 class="media-heading"><%= @artist.name %></h3>
+    </div>
+  </div>
+  
+  <div class="col-sm-12">
+    <ul class="nav nav-tabs nav-justified mb-3">
+      <li class="nav-item"><a href="<%= artist_path(@artist) %>" class="nav-link <%= 'active' if current_page?(artist_path(@artist)) %> "><i class="fas fa-compact-disc"></i> Albums</a></li>
+      <li class="nav-item"><a href="#" class="nav-link">Lives</a></li>
+      
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followings</a></li> -->
+      <!-- <li class="nav-item"><a href="#" class="nav-link">Followers</a></li> -->
+    </ul>
+    <%= render 'albums/albums', albums: @albums %>
+  </div>
+</div>

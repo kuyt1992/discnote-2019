@@ -1,0 +1,81 @@
+<% if reviews.any? %>
+<div class="album py-5 bg-light">
+  <div class="container">
+    <div class="row">
+      <% reviews.each do |review| %>
+        <div class="col-lg-6 ">
+          <div class="card flex-row mb-4 shadow-sm">
+            <div class="card-body d-flex flex-column align-items-start">
+              <div class="flex-row">
+                <% unless (controller.controller_name == "users" && controller.action_name == "show") %>
+                  <%= link_to user_path(review.user) do %>
+                  <%= image_tag review.user.image.thumbicon.url, class: "rounded-circle" %>
+                  <% end %>
+                  <span class="d-inline-block mb-4"><%= link_to review.user.name, user_path(review.user) %>のレビュー</span>
+                <% end %>
+              </div>
+
+              <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
+                <h5 class="card-subtitle mt-2 mb-1"><%=link_to review.album.title, album_path(review.album) %></h5>
+                <p class="card-subtitle"><%= link_to review.album.artist.name, artist_path(review.album.artist) %></p>
+              <% end %>
+              
+              <!--評価-->
+
+              <!--h6 class="ml-3 mt-3">Rate：<!--%= review.rate %--><!--/h6-->
+              <div class="mb-2" id="star-<%= review.id %>">Rate：<%= review.rate.round(1) %></div>
+              <%= javascript_include_tag "jquery.raty.js" %>
+
+              
+              
+                <script>
+                  $('#star-<%= review.id %>').raty({
+                    size: 36,
+                    starOff:  '<%= asset_path('star-off.png') %>',
+                    starOn : '<%= asset_path('star-on.png') %>',
+                    starHalf: '<%= asset_path('star-half.png') %>',
+                    
+                    half: true,
+                    readOnly: true,
+                    score: <%= review.rate %>,
+                  });
+                </script>  
+              
+              
+              <p class="card-text review-body"><%= review.body %></p>
+              <!--button type="button" class="btn btn-sm btn-outline-secondary"--><!--%= link_to 'view', review_path(review) %></button-->
+              <% if logged_in? %>
+                <div class="mt-1">
+                  <%= render 'favorites/like_button', review: review %>
+                </div>
+              <% end %>
+              <p class="text-muted mt-1 mb-0 align-items-end">posted at <%= review.created_at %></p>
+              <div class="align-items-end">
+                <% if current_user == review.user %>
+                  <%= link_to "Delete", review, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-outline-danger btn-sm align-items-end' %>
+                  <%= link_to "Edit", "/reviews/#{review.id}/edit", method: :get, class: 'btn btn-outline-dark btn-sm align-items-end' %>
+                <% end %>
+              </div>
+            </div>
+            <% unless (controller.controller_name == "albums" && controller.action_name == "show") %>
+            <div class="card-img-right align-items-start flex-auto img-responsive mt-4 mr-2">
+              <%= link_to album_path(review.album) do %>
+              <%= image_tag review.album.image.thumb200.url, class: "border img-fluid review-img" %>
+              <% end %>
+              <div class="mt-1 mb-2 btn-sm flex-fill p-0">
+                <%= render 'clips/clip_button', album: review.album, class: "" %>
+              </div>
+            </div>
+            <% end %>
+            
+          </div>
+        </div>
+      <% end %>
+      
+      
+    </div>
+  </div>
+</div>
+
+<% end %>
+<%= paginate @reviews %>

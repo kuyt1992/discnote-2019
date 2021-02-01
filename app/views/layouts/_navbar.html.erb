@@ -1,0 +1,41 @@
+<header class="mb-4">
+  <nav class="navbar navbar-expand-md navbar-dark bg-info">
+    <a class="navbar-brand" href="/"><i class="fas fa-headphones-alt"></i> Discnote</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav">
+        <% if logged_in? %>
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-music"></i> Music</a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item"><%= link_to albums_path do %><i class="fas fa-compact-disc"></i> Albums<% end %></li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><%= link_to artists_path do %><i class="fas fa-guitar"></i> Artists<% end %></li>
+            </ul>
+          <li class="nav-item"><%= link_to users_path, class: 'nav-link' do %><i class="fas fa-users"></i> Users<% end %></li>
+          <li class="nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-user-circle"></i> <%= current_user.name %></a>
+            <ul class="dropdown-menu dropdown-menu-right"> 
+              <li class="dropdown-item"><%= link_to user_path(current_user) do %><i class="fas fa-id-card"></i> My Profile<% end %></li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><%= link_to edit_user_path(current_user) do %><i class="fas fa-user-cog"></i> Edit Profile<% end %></li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><%= link_to logout_path, method: :delete do %><i class="fas fa-sign-out-alt"></i> Logout<% end %></li>
+            </ul>
+          </li>
+        <% else %>
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"><i class="fas fa-music"></i> Music</a>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li class="dropdown-item"><%= link_to albums_path do %><i class="fas fa-compact-disc"></i> Albums<% end %></li>
+              <li class="dropdown-divider"></li>
+              <li class="dropdown-item"><%= link_to artists_path do %><i class="fas fa-guitar"></i> Artists<% end %></li>
+            </ul>
+          <li class="nav-item"><%= link_to signup_path, class: 'nav-link' do %><i class="fas fa-user-edit"></i> Signup<% end %></li>
+          <li class="nav-item"><%= link_to login_path, class: 'nav-link' do %><i class="fas fa-sign-in-alt"></i> Login<% end %></li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+</header>

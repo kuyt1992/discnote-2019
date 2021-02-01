@@ -1,36 +1,36 @@
 class User < ApplicationRecord
-  validates :name, presence: true, length: { maximum: 50 }
-  validates :email, presence: true, length: { maximum: 255 },
-                    format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
-                    uniqueness: { case_sensitive: false }
-  validates :introduce, length: { maximum: 500 }
+  validates :name, :presence => true, :length => { :maximum => 50 }
+  validates :email, :presence => true, :length => { :maximum => 255 },
+                    :format => { :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i },
+                    :uniqueness => { :case_sensitive => false }
+  validates :introduce, :length => { :maximum => 500 }
   
   has_secure_password
   
   mount_uploader :image, ImageUploader
   
   has_many :reviews
-  has_many :albums, through: :reviews
+  has_many :albums, :through => :reviews
   
   has_many :relationships
-  has_many :followings, through: :relationships, source: :follow
-  has_many :reverses_of_relationship, class_name: 'Relationship', foreign_key: 'follow_id'
-  has_many :followers, through: :reverses_of_relationship, source: :user
+  has_many :followings, :through => :relationships, :source => :follow
+  has_many :reverses_of_relationship, :class_name => 'Relationship', :foreign_key => 'follow_id'
+  has_many :followers, :through => :reverses_of_relationship, :source => :user
   
   has_many :favorites
-  has_many :favreviews, through: :favorites, source: :review
+  has_many :favreviews, :through => :favorites, :source => :review
   
   has_many :clips
-  has_many :clip_albums, through: :clips, source: :album
+  has_many :clip_albums, :through => :clips, :source => :album
   
   def follow(other_user)
     unless self == other_user
-      self.relationships.find_or_create_by(follow_id: other_user.id)
+      self.relationships.find_or_create_by(:follow_id => other_user.id)
     end
   end
   
   def unfollow(other_user)
-    relationship = self.relationships.find_by(follow_id: other_user.id)
+    relationship = self.relationships.find_by(:follow_id => other_user.id)
     relationship.destroy if relationship
   end
 
@@ -39,16 +39,16 @@ class User < ApplicationRecord
   end
   
   def feed_reviews
-    Review.where(user_id: self.following_ids + [self.id])
+    Review.where(:user_id => self.following_ids + [self.id])
   end
   
   def like(review)
-    favorites.find_or_create_by(review_id: review.id)
+    favorites.find_or_create_by(:review_id => review.id)
   end
 
   #お気に入り削除
   def unlike(review)
-    favorite = favorites.find_by(review_id: review.id)
+    favorite = favorites.find_by(:review_id => review.id)
     favorite.destroy if favorite
   end
 
@@ -59,12 +59,12 @@ class User < ApplicationRecord
   
   #クリップメソッド
   def clip(album)
-    clips.find_or_create_by(album_id: album.id)
+    clips.find_or_create_by(:album_id => album.id)
   end
   
   #クリップ削除
   def unclip(album)
-    clip = clips.find_by(album_id: album.id)
+    clip = clips.find_by(:album_id => album.id)
     clip.destroy if clip
   end
   

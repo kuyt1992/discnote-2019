@@ -5,13 +5,13 @@ class ClipsController < ApplicationController
     album = Album.find(params[:album_id])
     current_user.clip(album)
     flash[:success] = 'クリップしました。'
-    redirect_back(fallback_location: root_path)
+    redirect_back(:fallback_location => root_path)
   end
 
   def destroy
     album = Album.find(params[:album_id])
     current_user.unclip(album)
     flash[:success] = 'クリップを解除しました。'
-    redirect_back(fallback_location: root_path)
+    redirect_back(:fallback_location => root_path)
   end
 end

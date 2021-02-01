@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :require_user_logged_in
-  before_action :correct_user, only: [:destroy, :edit]
+  before_action :correct_user, :only => [:destroy, :edit]
   
   def index
   end
@@ -18,19 +18,19 @@ class ReviewsController < ApplicationController
       flash[:success] = 'レビューを投稿しました。'
       redirect_to album_path(@album)
     else
-      @reviews = current_user.feed_reviews.order(id: :desc).page(params[:page])
+      @reviews = current_user.feed_reviews.order(:id => :desc).page(params[:page])
       flash.now[:danger] = 'レビューの投稿に失敗しました。'
       render 'albums/show'
     end
   end
   
   def edit
-    @review = current_user.reviews.find_by(id: params[:id])
+    @review = current_user.reviews.find_by(:id => params[:id])
     
   end
 
   def update
-    @review = current_user.reviews.find_by(id: params[:id])
+    @review = current_user.reviews.find_by(:id => params[:id])
     if @review.user_id == current_user.id
       if @review.update(review_params)
         flash[:success] = 'レビューを更新しました。'
@@ -47,7 +47,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review.destroy
     flash[:success] = 'レビューを削除しました。'
-    redirect_back(fallback_location: root_url)
+    redirect_back(:fallback_location => root_url)
   end
   
   private
@@ -57,7 +57,7 @@ class ReviewsController < ApplicationController
   end
   
   def correct_user
-    @review = current_user.reviews.find_by(id: params[:id])
+    @review = current_user.reviews.find_by(:id => params[:id])
     unless @review
       redirect_to root_url
     end

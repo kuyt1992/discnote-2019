@@ -1,14 +1,14 @@
 class UsersController < ApplicationController
-  before_action :require_user_logged_in, only: [:index, :show, :edit, :update, :followings, :followers]
-  before_action :correct_user, only: [:edit, :update]
+  before_action :require_user_logged_in, :only => [:index, :show, :edit, :update, :followings, :followers]
+  before_action :correct_user, :only => [:edit, :update]
   
   def index
-    @users = User.order(id: :desc).page(params[:page]).per(24)
+    @users = User.order(:id => :desc).page(params[:page]).per(24)
   end
 
   def show
     @user = User.find(params[:id])
-    @reviews = @user.reviews.order(id: :desc).page(params[:page])
+    @reviews = @user.reviews.order(:id => :desc).page(params[:page])
     counts(@user)
   end
 
@@ -66,14 +66,14 @@ class UsersController < ApplicationController
   def likes
     @user = User.find(params[:id])
     @favreviews = @user.favreviews.page(params[:page])
-    @reviews = @user.reviews.order(id: :desc).page(params[:page])
+    @reviews = @user.reviews.order(:id => :desc).page(params[:page])
     counts(@user)
   end
   
   def clips
     @user = User.find(params[:id])
     @clip_albums = @user.clip_albums.page(params[:page])
-    @albums = @user.albums.order(id: :desc).page(params[:page])
+    @albums = @user.albums.order(:id => :desc).page(params[:page])
     counts(@user)
   end
   
